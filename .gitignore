@@ -1,0 +1,32 @@
+# Environment files
+*.env
+*.env_app
+*.pylau_env
+temp_frames/
+
+# Python cache
+__pycache__
+*.py[cod]
+
+# Logs
+*.log
+logs/
+app/static/logs/
+
+# Media files
+*.mp3
+*.mp4
+*.wav
+*.mkv
+*.webm
+*.avi
+
+# Documents
+*.pdf
+*.pem
+*.docx
+# OS generated files
+.DS_Store
+Thumbs.db
+sendgrid.env
+sendgrid.env

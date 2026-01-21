@@ -8,6 +8,9 @@ Docstring for server
 - To run the server, execute this script. Access it via a web browser at:
   https://<server_ip>:<port> (e.g., https://192.168.1.209:8000)
   It is used to run the frontend of the application.
+
+  To run it locally in your terminal, use:
+    python3 -m server_fe.py
 """
 
 

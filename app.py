@@ -1,4 +1,18 @@
 
+"""
+Docstring for server
+
+- This is a simple HTTPS server using Python's built-in http.server module.
+- It serves files from the current directory over HTTPS.
+- Make sure to have a valid SSL certificate ('0.0.0.0+4.pem', '0.0.0.0+4-key.pem') in the same directory.
+
+- To run the server, execute this script. Access it via a web browser at:
+  https://<server_ip>:<port> (e.g., https://192.168.1.209:8443)
+  It is used to run the backend of the application.
+
+  To run it locally in your terminal, use:
+    python3 -m app
+"""
 
 import sqlalchemy, os
 import logging
@@ -85,7 +99,7 @@ if __name__ == '__main__':
     #app.run(debug=app.config['DEBUG'], port=app.config['PORT'])
 
     # Run the Flask app with SSL context for HTTPS
-    app.run(host="0.0.0.0", 
+    """app.run(host="0.0.0.0", 
             ssl_context=('0.0.0.0+4.pem', '0.0.0.0+4-key.pem'), 
             debug=app.config['DEBUG'], 
-            port=8443) # Use port 8443 for HTTPS
+            port=8443) # Use port 8443 for HTTPS"""

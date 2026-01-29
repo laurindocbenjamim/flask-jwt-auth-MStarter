@@ -25,9 +25,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the current directory contents into the container at /app
 COPY . /app/
 
-# Expose port 8000 (Gunicorn) or 8443 (if using ssl directly)
-EXPOSE 8000
+# Expose port 8443 (HTTPS)
+EXPOSE 8443
 
-# Run gunicorn
-# Adjust workers and bind address as needed
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "app:app"]
+# Run app.py directly to use the SSL context and initialization logic defined in __main__
+CMD ["python", "app.py"]

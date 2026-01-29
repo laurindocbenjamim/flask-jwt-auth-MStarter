@@ -38,6 +38,7 @@ from src.utils import create_additional_claims
 from src.models import User, TokenBlocklist, TokenBlocklist2
 from src.blueprints import (user_api_bp,
                             auth_api, auth2_api_bp,
+                            admin_api, send_email_api
                             )
 
 from src.utils.handling_errors import handle_errors
@@ -229,6 +230,9 @@ def create_app():
     app.register_blueprint(user_api_bp, url_prefix='/api/v1/user')
     app.register_blueprint(auth_api, url_prefix='/api/v1/auth')
     app.register_blueprint(auth2_api_bp, url_prefix='/api/v1/auth2')
+    app.register_blueprint(admin_api, url_prefix='/api/v1/admin')
+    app.register_blueprint(send_email_api, url_prefix='/api/v1/email')
+    app.register_blueprint(bp_author, url_prefix='/profile')
  
 
     routes(app=app)

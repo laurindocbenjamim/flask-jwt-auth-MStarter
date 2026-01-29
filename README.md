@@ -205,6 +205,46 @@ This document provides a detailed overview of the available endpoints in the Fla
 
 ---
 
+## Admin API
+**Base URL:** `/api/v1/admin`
+
+### 1. User Data
+- **Endpoint:** `/user`
+- **Method:** `GET`
+- **Description:** Returns currently logged-in user data and administration flags.
+- **Headers:** `Authorization: Bearer <token>`
+- **Response:**
+  ```json
+  {
+    "status_code": 200,
+    "message": "Welcome to protected route!",
+    "is_administrator": true,
+    "full_name": "...",
+    ...
+  }
+  ```
+
+### 2. Admin User Info
+- **Endpoint:** `/adm_user`
+- **Method:** `GET`
+- **Description:** Returns simple admin check info (Admin only).
+- **Headers:** `Authorization: Bearer <token>`
+- **Response:**
+  ```json
+  {
+    "status_code": 200,
+    "message": "Welcome to the Admin route!"
+  }
+  ```
+
+### 3. Manage Users
+- **Endpoint:** `/manage-user`
+- **Method:** `GET`, `PUT`, `DELETE`, `PATCH`
+- **Description:** Admin endpoints for user management (list, update, delete).
+- **Headers:** `Authorization: Bearer <token>`
+
+---
+
 ## Email Services API
 **Base URL:** `/api/v1/email`
 
@@ -338,3 +378,24 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 ```
 *Ensure the file exists at the specified path (`src/static/assets/img/favicon/favicon.ico`).*
+
+#### 2. Docker Error: Address Already in Use
+**Error Log:**
+```
+Error response from daemon: driver failed programming external connectivity on endpoint ...
+failed to bind host port for 0.0.0.0:5432:172.22.0.2:5432/tcp: address already in use
+```
+
+**Cause:**
+Port 5432 on your host machine is already being used (likely by a local PostgreSQL installation), preventing Docker from binding the container's port to it.
+
+**Solution:**
+Modify `docker-compose.yml` to map the container's port 5432 to a different host port (e.g., 5433).
+
+```yaml
+services:
+  db:
+    ports:
+      - "5433:5432"  # Change host port to 5433
+```
+*Then rebuild:* `docker-compose up --build`

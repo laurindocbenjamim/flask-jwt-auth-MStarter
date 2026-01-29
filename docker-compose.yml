@@ -4,7 +4,7 @@ services:
   web:
     build: .
     ports:
-      - "8000:8000"
+      - "8443:8443"
     environment:
       - FLASK_ENV=development
       # Override DATABASE_URL to verify against the local container db if needed

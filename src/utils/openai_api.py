@@ -10,7 +10,8 @@ class OpenAiApi(object):
     API_URL = 'https://api.openai.com/v1/engines/davinci-codex/completions'
     gpt_model=['gpt-3.5-turbo', "gpt-4", 'gpt-4o', "davinci-codex"]
     
-    client = OpenAI(api_key=os.environ['OPEN_AI_API_KEY'])  # this is also the default, it can be omitted
+    api_key = os.getenv('OPEN_AI_API_KEY')
+    client = OpenAI(api_key=api_key) if api_key else None
     header: int =1
 
     def send_request(self, *, prompt: str, tokens: int, temperature: int=0)-> any:

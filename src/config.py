@@ -78,7 +78,7 @@ class Config(MySmtpConfig):
     # Correctly set the secret key and algorithm
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', '543210')  # Secure key
     #SQLALCHEMY_DATABASE_URI = "sqlite://"
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", 'sqlite:///development.db')
         
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ALGORITHM = "HS256"

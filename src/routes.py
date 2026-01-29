@@ -67,7 +67,6 @@ def routes(app):
         data = request.get_json()
         username = data.get('username')
         password = data.get('password')
-        
 
         user = User.query.filter_by(username=username).one_or_none()
         if not user or not user.check_password(password):

@@ -5,7 +5,8 @@ import jwt
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-from flask import (jsonify, make_response, request, abort, render_template)
+from flask import (jsonify, make_response, request, abort, render_template, send_from_directory)
+import os
 
 from flask_jwt_extended import (     
     create_access_token,
@@ -24,6 +25,11 @@ from src.utils import db
 from src.models import User, TokenBlocklist, TokenBlocklist2
 
 def routes(app):
+
+    @app.route('/favicon.ico')
+    def favicon():
+        return send_from_directory(os.path.join(app.root_path, 'static', 'assets', 'img', 'favicon'),
+                                   'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     @app.route("/debug-config/<string:dev>", methods=["GET"])
     def debug_config(dev):

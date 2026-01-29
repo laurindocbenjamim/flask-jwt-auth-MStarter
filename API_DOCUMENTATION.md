@@ -257,3 +257,33 @@ This document provides a detailed overview of the available endpoints in the Fla
 - **Endpoint:** `/debug-config/<dev>`
 - **Method:** `GET`
 - **Description:** Returns config variables if `dev` matches config.
+
+---
+
+## Troubleshooting
+
+### Common Errors
+
+#### 1. 404 Not Found: Favicon (`/favicon.ico`)
+**Error Log:**
+```
+INFO - 192.168.1.209 - - [29/Jan/2026 13:19:21] "GET /favicon.ico HTTP/1.1" 404 -
+werkzeug.exceptions.NotFound: 404 Not Found: The requested URL was not found on the server.
+```
+
+**Cause:**
+Browsers automatically request `favicon.ico` to display the site icon. If Flask is not configured to serve this file from the root, it returns a 404 error.
+
+**Solution:**
+Add a specific route to serve the favicon from your static assets directory.
+
+```python
+from flask import send_from_directory
+import os
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static', 'assets', 'img', 'favicon'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+```
+*Ensure the file exists at the specified path (`src/static/assets/img/favicon/favicon.ico`).*

@@ -5,7 +5,8 @@ import jwt
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
-from flask import (jsonify, make_response, request, abort, render_template)
+from flask import (jsonify, make_response, request, abort, render_template, send_from_directory)
+import os
 
 from flask_jwt_extended import (     
     create_access_token,
@@ -24,6 +25,11 @@ from src.utils import db
 from src.models import User, TokenBlocklist, TokenBlocklist2
 
 def routes(app):
+
+    @app.route('/favicon.ico')
+    def favicon():
+        return send_from_directory(os.path.join(app.root_path, 'static', 'assets', 'img', 'favicon'),
+                                   'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     @app.route("/debug-config/<string:dev>", methods=["GET"])
     def debug_config(dev):
@@ -57,7 +63,7 @@ def routes(app):
 
         welcome_title = "Welcome to Data Tuning"
         welcome_message = "Empowering learners with cutting-edge online education"
-        response = make_response(render_template('home.html', title='Home', welcome_title=welcome_title,  welcome_message=welcome_message))
+        response = make_response(render_template('index.html', title='Home', welcome_title=welcome_title,  welcome_message=welcome_message))
         return response
 
 
@@ -67,7 +73,6 @@ def routes(app):
         data = request.get_json()
         username = data.get('username')
         password = data.get('password')
-        
 
         user = User.query.filter_by(username=username).one_or_none()
         if not user or not user.check_password(password):

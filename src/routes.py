@@ -57,7 +57,7 @@ def routes(app):
 
         welcome_title = "Welcome to Data Tuning"
         welcome_message = "Empowering learners with cutting-edge online education"
-        response = make_response(render_template('home.html', title='Home', welcome_title=welcome_title,  welcome_message=welcome_message))
+        response = make_response(render_template('index.html', title='Home', welcome_title=welcome_title,  welcome_message=welcome_message))
         return response
 
 

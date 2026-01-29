@@ -1,3 +1,7 @@
+# flask-jwt-auth-MStarter
+
+This is a starter page with JWT authentication modules.
+
 # API Documentation
 
 This document provides a detailed overview of the available endpoints in the Flask JWT Auth application.
@@ -198,6 +202,53 @@ This document provides a detailed overview of the available endpoints in the Fla
 - **Endpoint:** `/logout`
 - **Method:** `GET`
 - **Description:** Clears session and redirects to index.
+
+---
+
+## Email Services API
+**Base URL:** `/api/v1/email`
+
+### 1. Send Confirm Email (SendGrid)
+- **Endpoint:** `/send-confirm`
+- **Method:** `POST` (Implied from Resource)
+- **Description:** Sends a confirmation email using SendGrid.
+
+### 2. Send Confirm Email to New User
+- **Endpoint:** `/send-confirm-to-new-user`
+- **Method:** `POST` (Implied from Resource)
+- **Description:** Sends a confirmation email to a newly registered user.
+
+### 3. Send Email (SendGrid)
+- **Endpoint:** `/send`
+- **Method:** `POST` (Implied from Resource)
+- **Description:** Generic email sending endpoint via SendGrid.
+
+### 4. Confirm Email (Link Target)
+- **Endpoint:** `/confirm_email`
+- **Method:** `GET`
+- **Description:** Endpoint that users hit when clicking the confirmation link.
+- **Query Params:** `token=<jwt_token>`
+- **Response:** Renders `success_email_confirm.html` with success or error message.
+
+---
+
+## Author Profile API
+**Base URL:** `/profile`
+
+### 1. Projects
+- **Endpoint:** `/laurindo-c-benjamim/projects`
+- **Method:** `GET`
+- **Description:** Renders the author's projects page (`projects.html`).
+
+### 2. Experiences
+- **Endpoint:** `/laurindo-c-benjamim/experiences`
+- **Method:** `GET`
+- **Description:** Renders the author's experiences page (`experiences.html`).
+
+### 3. About
+- **Endpoint:** `/laurindo-c-benjamim`
+- **Method:** `GET` (via URL Rule)
+- **Description:** Renders the author's about page (`about.html`).
 
 ---
 

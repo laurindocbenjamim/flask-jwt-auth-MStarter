@@ -99,8 +99,8 @@ if __name__ == '__main__':
     #app.run(debug=app.config['DEBUG'], port=app.config['PORT'])
 
     # Run the Flask app with SSL context for HTTPS
-    app.run(#host="0.0.0.0" 
-            #,ssl_context=('0.0.0.0+4.pem', '0.0.0.0+4-key.pem'), 
-            debug=app.config['DEBUG'] 
-            #,port=8443
+    app.run(host="0.0.0.0" 
+            ,ssl_context=('0.0.0.0+4.pem', '0.0.0.0+4-key.pem') 
+            ,debug=app.config['DEBUG'] 
+            ,port=8443
             ) # Use port 8443 for HTTPS

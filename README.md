@@ -399,3 +399,38 @@ services:
       - "5433:5432"  # Change host port to 5433
 ```
 *Then rebuild:* `docker-compose up --build`
+
+#### 3. Flask-Limiter Warning: In-memory Storage
+**Warning Log:**
+```
+UserWarning: Using the in-memory storage for tracking rate limits as no storage was explicitly specified.
+```
+
+**Cause:**
+`Flask-Limiter` requires a storage backend (like Redis or Memcached). If none is configured, it falls back to in-memory storage, which resets when the application restarts.
+
+**Solution:**
+Explicitly configure the storage URI in `src/config.py` (e.g., to `memory://` to suppress the warning if in-memory is intended, or a valid Redis URL).
+
+```python
+# In src/config.py
+RATELIMIT_STORAGE_URI = os.environ.get('RATELIMIT_STORAGE_URI', 'memory://')
+```
+
+#### 4. SQLAlchemy Error: Missing Database URI
+**Error Log:**
+```
+Error: Either 'SQLALCHEMY_DATABASE_URI' or 'SQLALCHEMY_BINDS' must be set.
+```
+
+**Cause:**
+The `SQLALCHEMY_DATABASE_URI` configuration variable is evaluating to `None` or an empty string, likely because the `DATABASE_URL` environment variable is present but empty, or the default fallback wasn't triggering correctly.
+
+**Solution:**
+Ensure `SQLALCHEMY_DATABASE_URI` has a valid fallback value in `src/config.py`.
+
+```python
+# In src/config.py
+SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or 'sqlite:///development.db'
+```
+This ensures that if `DATABASE_URL` is empty, the default SQLite database is used.

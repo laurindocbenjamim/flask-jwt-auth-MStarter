@@ -60,9 +60,9 @@ class Config(MySmtpConfig):
     SPACES_ENDPOINT= os.environ.get('SPACES_ENDPOINT', '')
     
     DB_PORT=5432
-    DATABASE_URL='sqlite:///development.db'
+    
     DISABLE_COLLECTSTATIC=1
-
+    
     MYSQL_DB_PORT=3306
     MYSQL_DB_SERVER='185.12.116.142'
 
@@ -77,8 +77,8 @@ class Config(MySmtpConfig):
     
     # Correctly set the secret key and algorithm
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', '543210')  # Secure key
-    #SQLALCHEMY_DATABASE_URI = "sqlite://"
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", 'sqlite:///development.db')
+    
+    RATELIMIT_STORAGE_URI = os.environ.get('RATELIMIT_STORAGE_URI', 'memory://')
         
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ALGORITHM = "HS256"
@@ -115,6 +115,9 @@ class DevelopmentConfig(Config):
     DEBUG = True
     LOG_LEVEL = "DEBUG"
 
+    #SQLALCHEMY_DATABASE_URI = "sqlite://"
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or 'sqlite:///development.db'
+
     FLASK_ENV=os.environ.get('FLASK_ENV', 'development')
     MAX_CONNECTIONS = int(os.getenv("MAX_CONNECTIONS", 100))
 
@@ -122,5 +125,12 @@ class ProductionConfig(Config):
     PORT=5000
     DEBUG = False
     LOG_LEVEL = "ERROR"
+
+    # In production the database is SQLAlchemy
+    # In development the database is SQLite
+    #SQLALCHEMY_DATABASE_URI = "sqlite://"
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or 'sqlite:///development.db'
+
+
     FLASK_ENV=os.environ.get('FLASK_ENV', 'production')
     MAX_CONNECTIONS = int(os.getenv("MAX_CONNECTIONS", 100))
